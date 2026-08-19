@@ -11,16 +11,17 @@ import readline from "node:readline/promises";
 import { stdin, stdout } from "node:process";
 
 import { Agent } from "./agent.js";
+import { color, printBanner } from "./ui.js";
 
 async function main() {
-  console.log("Simple Coding Agent (type 'exit' to quit)");
+  printBanner();
 
   let agent: Agent;
   try {
     agent = new Agent();
   } catch (err) {
     const message = err instanceof Error ? err.message : String(err);
-    console.log(`Error: ${message}`);
+    console.log(color.red(`Error: ${message}`));
     return;
   }
 
@@ -29,14 +30,14 @@ async function main() {
   while (true) {
     let userInput: string;
     try {
-      userInput = (await rl.question("\nYou: ")).trim();
+      userInput = (await rl.question(`\n${color.cyan("You:")} `)).trim();
     } catch {
-      console.log("\nGoodbye!");
+      console.log(color.dim("\nGoodbye!"));
       break;
     }
 
     if (["exit", "quit"].includes(userInput.toLowerCase())) {
-      console.log("Goodbye!");
+      console.log(color.dim("Goodbye!"));
       break;
     }
     if (!userInput) continue;

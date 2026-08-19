@@ -13,6 +13,7 @@ import type { MessageParam, ContentBlock, ToolResultBlockParam } from "@anthropi
 
 import * as config from "./config.js";
 import { TOOLS, TOOL_FUNCTIONS } from "./tools.js";
+import { color } from "./ui.js";
 
 const SYSTEM_PROMPT = `You are a helpful coding agent. You can read, write, and edit files,
 list directories, and run shell commands to complete coding tasks.
@@ -64,13 +65,13 @@ export class Agent {
       this.messages.push({ role: "user", content: toolResults });
     }
 
-    console.log("\n(Stopped: reached the maximum number of steps for this task.)");
+    console.log(color.dim("\n(Stopped: reached the maximum number of steps for this task.)"));
   }
 
   private printTextBlocks(blocks: ContentBlock[]): void {
     for (const block of blocks) {
       if (block.type === "text" && block.text.trim()) {
-        console.log(`\nClaude: ${block.text}`);
+        console.log(`\n${color.neon("Claude:")} ${block.text}`);
       }
     }
   }
@@ -89,7 +90,7 @@ export class Agent {
     const func = TOOL_FUNCTIONS[name];
     if (!func) return `Error: unknown tool '${name}'`;
 
-    console.log(`\n[tool] ${name}(${JSON.stringify(toolInput)})`);
+    console.log(`\n${color.yellow(`[tool] ${name}(${JSON.stringify(toolInput)})`)}`);
     try {
       return String(func(toolInput));
     } catch (err) {
