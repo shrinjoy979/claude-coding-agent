@@ -1,3 +1,6 @@
+<img width="803" height="404" alt="Screenshot 2026-08-20 at 12 39 42 AM" src="https://github.com/user-attachments/assets/931b3819-f35d-4adf-ab3c-e30325d363fd" />
+
+
 # Simple Coding Agent (TypeScript)
 
 A small, easy-to-read coding agent, similar in spirit to tools like Pi:
